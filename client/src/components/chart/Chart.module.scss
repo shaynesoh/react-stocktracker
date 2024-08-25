@@ -1,6 +1,8 @@
 .chart {
     position: relative;
     flex: 3;
+    display: flex;
+    justify-content: center;
 
     &__error {
 

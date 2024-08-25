@@ -11,6 +11,7 @@
     h1 {
       font-weight: 800;
       text-transform: uppercase;
+      font-size: 36px;
     }
   }
 
@@ -32,6 +33,79 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        font-size: 24px;
+        /* Base font size */
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .app {
+
+    &__title {
+      padding: 20px;
+
+      h1 {
+        font-size: 30px;
+      }
+    }
+
+    &__sections {
+      padding: 20px;
+      gap: 20px;
+
+      .default {
+        h2 {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    &__title {
+      padding: 15px;
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    &__sections {
+      flex-direction: column;
+      padding: 15px;
+      gap: 15px;
+
+      .default {
+        h2 {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
+    &__title {
+      padding: 10px;
+
+      h1 {
+        font-size: 18px;
+      }
+    }
+
+    &__sections {
+      padding: 10px;
+      gap: 10px;
+
+      .default {
+        h2 {
+          font-size: 16px;
+        }
       }
     }
   }
