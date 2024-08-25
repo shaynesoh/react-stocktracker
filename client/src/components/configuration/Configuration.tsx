@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import CreatableSelect from 'react-select/creatable';
-import { ConfigurationProps, PriceTypeOption } from './configuration.types';
+import { ConfigurationProps, PriceTypeOption } from './Configuration.types';
 import styles from './Configuration.module.scss';
 import { searchStockNames } from '../../services/polygonAPI';
 import { debounce } from '../../utils/debounce';

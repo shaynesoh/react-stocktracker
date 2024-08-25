@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { ChartProps } from './chart.types';
+import { ChartProps } from './Chart.types';
 import styles from './Chart.module.scss';
 import { fetchStockData } from '../../services/polygonAPI';
 
@@ -22,7 +22,7 @@ const Chart = ({ config, submitted }: ChartProps & { submitted: boolean }) => {
 
       const datasets = results
         .map((data, index) => {
-          if (data.results && data.results.length > 0) {
+          if (data && data.results && Array.isArray(data.results) && data.results.length > 0) {
             const prices = data.results.map((result: any) => result[config.priceType]);
             const color = colors[index % colors.length];
 
@@ -39,11 +39,17 @@ const Chart = ({ config, submitted }: ChartProps & { submitted: boolean }) => {
         .filter(dataset => dataset !== null);
 
       if (datasets.length > 0) {
-        setChartData({
-          labels: results[0].results.map((result: any) => new Date(result.t).toLocaleDateString()),
-          datasets,
-        });
-        setError(null);
+        const firstResults = results.find(data => data && data.results && Array.isArray(data.results));
+        if (firstResults && firstResults.results && Array.isArray(firstResults.results)) {
+          setChartData({
+            labels: firstResults.results.map((result: any) => new Date(result.t).toLocaleDateString()),
+            datasets,
+          });
+          setError(null);
+        } else {
+          setError('No data available for the selected stocks.');
+          setChartData({ datasets: [] });
+        }
       } else {
         setError('No data available for the selected stocks.');
         setChartData({ datasets: [] });
@@ -58,6 +64,7 @@ const Chart = ({ config, submitted }: ChartProps & { submitted: boolean }) => {
       setChartData({ datasets: [] });
     }
   };
+
 
   useEffect(() => {
     if (!submitted) return;
